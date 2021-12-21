@@ -3,11 +3,11 @@ import { fetchQuiz } from './API';
 /* Components */
 import QuestionsCards from './components/questionsCards/QuestionsCards';
 /* Styles */
-import { StyledDiv, StyledButton, StyledTitle, StyledScore, StyledSelect, StyledOption } from './app.style'
+import { GlobalStyle, Wrapper, SelectWrapper } from './app.style'
 /* Types */
 import { QuestionState } from './API';
 
-type AnswerObject = {
+export type AnswerObject = {
   question: string,
   answer: string,
   correct: boolean,
@@ -85,53 +85,62 @@ const App = () => {
 
 
   return (
-    <StyledDiv>
-      <StyledTitle> React TS Made Quiz</StyledTitle>
-      {
-        gameOver || userAnswers.length === amount ? (
-          <>
-            <p>Difficulty</p>
-            <StyledSelect onChange={hanldeDifficultyOptions}>
-              <StyledOption value="easy">Easy</StyledOption>
-              <StyledOption value="medium">Medium</StyledOption>
-              <StyledOption value="hard">Hard</StyledOption>
-            </StyledSelect>
-            <p>Amount:</p>
-            <StyledSelect onChange={hanldeAmountOptions}>Amount:
-              <StyledOption value={10}>10</StyledOption>
-              <StyledOption value={15}>15</StyledOption>
-              <StyledOption value={20}>20</StyledOption>
-            </StyledSelect>
-            <p>Category</p>
-            <StyledSelect onChange={hanldeCategoryOptions}>Category:
-              <StyledOption value={9}>General Knowlodedge</StyledOption>
-              <StyledOption value={15}>Video Games</StyledOption>
-              <StyledOption value={21}>Sports</StyledOption>
-              <StyledOption value={22}>Geography</StyledOption>
-              <StyledOption value={23}>History</StyledOption>
-              <StyledOption value={27}>Animals</StyledOption>
-              <StyledOption value={28}>Vehicles</StyledOption>
-            </StyledSelect>
-            <p></p>
-            <StyledButton onClick={startQuizz}>
-              Start
-            </StyledButton>
-          </>
-        ) : null
-      }
+    <>
+      <GlobalStyle />
+      <Wrapper>
+        <h1> React TS Made Quiz</h1>
+        {
+          gameOver || userAnswers.length === amount ? (
+            <>
+              <SelectWrapper>
+                <span>Difficulty</span>
+                <select onChange={hanldeDifficultyOptions}>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </SelectWrapper>
+              <SelectWrapper>
+                <span>Amount:</span>
+                <select onChange={hanldeAmountOptions}>Amount:
+                  <option value={10}>10</option>
+                  <option value={15}>15</option>
+                  <option value={20}>20</option>
+                </select>
+              </SelectWrapper>
+              <SelectWrapper>
+                <span>Category</span>
+                <select onChange={hanldeCategoryOptions}>Category:
+                  <option value={9}>General Knowlodedge</option>
+                  <option value={15}>Video Games</option>
+                  <option value={21}>Sports</option>
+                  <option value={22}>Geography</option>
+                  <option value={23}>History</option>
+                  <option value={27}>Animals</option>
+                  <option value={28}>Vehicles</option>
+                </select>
+              </SelectWrapper>
+              <p></p>
+              <button className='start' onClick={startQuizz}>
+                Start
+              </button>
+            </>
+          ) : null
+        }
 
-      {!gameOver ? <StyledScore>Score: {score}</StyledScore> : null}
-      {loading && <p>Loading Questions ...</p>}
-      {!loading && !gameOver && (<QuestionsCards
-        questionNumber={number + 1}
-        totalQuestions={amount}
-        question={questions[number].question}
-        answers={questions[number].answers}
-        userAnswer={userAnswers ? userAnswers[number] : undefined}
-        callback={checkAnswer}
-      />)}
-      {!gameOver ? <StyledButton onClick={nextQuestion}> Next Question </StyledButton> : null}
-    </StyledDiv>
+        {!gameOver ? <p className='score'>Score: {score}</p> : null}
+        {loading && <p>Loading Questions ...</p>}
+        {!loading && !gameOver && (<QuestionsCards
+          questionNumber={number + 1}
+          totalQuestions={amount}
+          question={questions[number].question}
+          answers={questions[number].answers}
+          userAnswer={userAnswers ? userAnswers[number] : undefined}
+          callback={checkAnswer}
+        />)}
+        {!gameOver && !loading && userAnswers.length === number + 1 && number !== amount - 1 ? <button className='next' onClick={nextQuestion}> Next Question </button> : null}
+      </Wrapper>
+    </>
   );
 }
 
