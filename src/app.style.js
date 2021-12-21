@@ -21,7 +21,8 @@ body{
 }
 
 .root{
-  width: 100%
+  width: 100%;
+  height: 100vh;
 }
 
 `
@@ -31,6 +32,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 
  > h1{
   color: #fff;
