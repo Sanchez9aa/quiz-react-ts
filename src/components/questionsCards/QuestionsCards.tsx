@@ -6,7 +6,7 @@ import { Props } from './model'
 const QuestionsCards: FC<Props> = ({question, answers, callback, userAnswer, questionNumber, totalQuestions}) => {
   return (
     <Wrapper>
-      <p> Question : {questionNumber} / {totalQuestions}</p>
+      <p className="question"> Question : {questionNumber} / {totalQuestions}</p>
       <p dangerouslySetInnerHTML={{__html: question}}></p>
       <div>
         {answers.map(answer => (
