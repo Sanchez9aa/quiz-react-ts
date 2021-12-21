@@ -1,30 +1,27 @@
 import React, { FC } from 'react'
-import {StyledWrapper, StyledAnswerSelected, StyledAnswers, StyledNumberQuestion, StyledWrapperAnswers} from './questionsCards.style'
+import {Wrapper, WrapperAnswers} from './questionsCards.style'
+import { Props } from './model'
 
-type Props = {
-  question: string,
-  answers: string[],
-  callback: any,
-  userAnswer: any,
-  questionNumber: number,
-  totalQuestions: number
-}
 
 const QuestionsCards: FC<Props> = ({question, answers, callback, userAnswer, questionNumber, totalQuestions}) => {
   return (
-    <StyledWrapper>
-      <StyledNumberQuestion> Question : {questionNumber} / {totalQuestions}</StyledNumberQuestion>
+    <Wrapper>
+      <p> Question : {questionNumber} / {totalQuestions}</p>
       <p dangerouslySetInnerHTML={{__html: question}}></p>
-      <StyledWrapperAnswers>
+      <div>
         {answers.map(answer => (
-          <StyledAnswers key={answer}>
-            <StyledAnswerSelected disabled={userAnswer} value={answer} onClick={callback}>
+          <WrapperAnswers 
+            key={answer}
+            correct={userAnswer?.correctAnswer === answer}
+            userClicked={userAnswer?.answer === answer}
+            >
+            <button disabled={userAnswer ? true : false} value={answer} onClick={callback}>
               <span dangerouslySetInnerHTML={{__html: answer}}></span>
-            </StyledAnswerSelected>
-          </StyledAnswers>
+            </button>
+          </WrapperAnswers>
         ))}
-      </StyledWrapperAnswers>
-    </StyledWrapper>
+      </div>
+    </Wrapper>
   )
 }
 
