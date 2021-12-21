@@ -4,9 +4,19 @@ import { ButtonWrapperProps } from './model'
 export const Wrapper = styled.div`
 max-width : 1100px;
 
+
 > p {
   color:#fff;
   margin: 10px 0;
+}
+
+.question{
+    display:flex;
+    justify-content: center;
+  }
+
+@media screen and (max-width: 620px){
+  width: 90%;
 }
 `
 
@@ -35,7 +45,6 @@ export const WrapperAnswers = styled.div<ButtonWrapperProps>`
     border-radius: 10px;
     color:#fff;
     text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25)
-
   }
 `
 
